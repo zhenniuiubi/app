@@ -6,6 +6,15 @@ use app\admin\model\News as MewsModel;
 
 class News extends Base
 {
+    public function index()
+    {
+        //获取数据,填充到模版
+        $news = model('News')->getNews();
+        return $this->fetch('', [
+            'news'=>$news,
+        ]);
+    }
+
     public function add()
     {
         if (request()->isPost()) {
@@ -18,8 +27,8 @@ class News extends Base
                 return $this->result(['',0,'新增失败']);
             }
             if ($news->id) {
-                return $this->result(['jump_url'=>url('news/index')],1,'新增成功');
-            }else{
+                return $this->result(['jump_url'=>url('news/index')], 1, '新增成功');
+            } else {
                 return $this->result(['',0,'新增失败']);
             }
         } else {
@@ -32,10 +41,5 @@ class News extends Base
     public function uploadify()
     {
         return $this->fetch();
-    }
-    
-    public function index()
-    {
-        echo 1111111111;
     }
 }

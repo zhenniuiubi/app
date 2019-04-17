@@ -10,3 +10,10 @@
 // +----------------------------------------------------------------------
 
 // 应用公共文件
+function pagination($obj)
+{
+    if(!$obj){
+        return '';
+    }
+    return '<div class="imooc-app"'.$obj->appends($params).'</div>';
+}

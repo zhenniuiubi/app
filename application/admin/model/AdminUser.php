@@ -2,11 +2,10 @@
 
 namespace app\admin\model;
 
-use think\Model;
+use app\admin\model\Base;
 
-class AdminUser extends Model
+class AdminUser extends Base
 {
-    protected $autoWriteTimestamp = true;
     public function add($data)
     {
         $res = $this->get(['username'=>$data['username']]);
