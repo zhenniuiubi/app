@@ -19,6 +19,26 @@ class News extends Base
         $result = $this->where($data)
             ->order($order)
             ->paginate();
+        echo $this->getLastSql();
         return $result;
+    }
+
+    /*
+     * 根据条件获取表里数据
+     * @param array $param
+     */
+    public function getNewsByCondition($param=[])
+    {
+        $condition['status'] = [
+            'neq',config('code.status_delete')
+        ];
+        $order = ['id'=>'desc'];
+        $from = ($param['page'] -1) * $param['size'];
+
+        $result = $this->where($condition)
+            ->limit($from,$param['size'])
+            ->order($order)
+            ->select();
+        echo $this->getlastsql();
     }
 }

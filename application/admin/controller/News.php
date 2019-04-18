@@ -8,8 +8,14 @@ class News extends Base
 {
     public function index()
     {
+        $data = input('param.');
         //获取数据,填充到模版
-        $news = model('News')->getNews();
+        //模式一
+        // $news = model('News')->getNews();
+        //模式二 page size from --> limit from size
+        $whereData['page'] = !empty($data['page'])?$data['page']:1;
+        $whereData['size'] = !empty($data['size'])?$data['size']:config('pagination.list_rows');
+        $news = model('News')->getNewsByCondition($whereData);
         return $this->fetch('', [
             'news'=>$news,
         ]);

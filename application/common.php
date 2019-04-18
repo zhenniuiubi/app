@@ -12,8 +12,21 @@
 // 应用公共文件
 function pagination($obj)
 {
-    if(!$obj){
+    if (!$obj) {
         return '';
     }
-    return '<div class="imooc-app"'.$obj->appends($params).'</div>';
+    $params = request()->param();
+    return '<div class="imooc-app">'.$obj->appends($params)->render().'</div>';
+}
+
+/**
+ * 获取栏目名称
+ */
+function getCatName($catId)
+{
+    if (!$catId) {
+        return '';
+    }
+    $cats = config('cat.list');
+    return !empty($cats[$catId]) ? $cats[$catId] : '';
 }
