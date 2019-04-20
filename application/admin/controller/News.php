@@ -9,15 +9,40 @@ class News extends Base
     public function index()
     {
         $data = input('param.');
-        //获取数据,填充到模版
+        $query = http_build_query($data);
+        $whereData = [];
+        if (!empty($data['start_time']) && !empty($data['end_time']) && $data['end_time'] > $data['start_time']) {
+            $whereData['create_time'] = [
+                ['gt', strtotime($data['start_time'])],
+                ['lt', strtotime($data['end_time'])],
+            ];
+        }
+        if (!empty($data['catid'])) {
+            $whereData['catid'] = intval($data['catid']);
+        }
+        if (!empty($data['title'])) {
+            $whereData['title'] = ['like','%'.$data['title'].'%'];
+        }
         //模式一
-        // $news = model('News')->getNews();
+        $news = model('News')->getNews();
         //模式二 page size from --> limit from size
-        $whereData['page'] = !empty($data['page'])?$data['page']:1;
-        $whereData['size'] = !empty($data['size'])?$data['size']:config('pagination.list_rows');
-        $news = model('News')->getNewsByCondition($whereData);
+        $this->getPageAndSize($data);
+        
+
+        $news = model('News')->getNewsByCondition($whereData,$this->from,$this->size);
+        $totle = model('News')->getNewsCountByCondition($whereData);
+        //总页数
+        $pageTotal = ceil($totle/$this->size);
         return $this->fetch('', [
+            'cats'=>config('cat.list'),
             'news'=>$news,
+            'pageTotal'=>$pageTotal,
+            'curr'=>$this->page,
+            'start_time'=>empty($data['start_time'])?'':$data['start_time'],
+            'end_time'=>empty($data['end_time'])?'':$data['end_time'],
+            'catid'=>empty($data['catid'])?'':$data['catid'],
+            'title'=>empty($data['title'])?'':$data['title'],
+            'query'=>$query
         ]);
     }
 

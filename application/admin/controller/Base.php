@@ -6,6 +6,11 @@ use think\Controller;
 
 class Base extends Controller
 {
+    public $page = '';
+    //每页显示多少条
+    public $size = '';
+    //查询条件的起始页
+    public $from = 0;
     /**
      * 后台基础类库
      */
@@ -27,5 +32,15 @@ class Base extends Controller
             return true;
         }
         return false;
+    }
+
+    /**
+     * 获取分页的page和size
+     */
+    public function getPageAndSize($data)
+    {
+        $this->page = !empty($data['page'])?$data['page']:1;
+        $this->size = !empty($data['size'])?$data['size']:config('paginate.list_rows');
+        $this->from = ($this->page -1) * $this->size;
     }
 }
