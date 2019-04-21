@@ -34,7 +34,7 @@ class Common extends Controller
         // }
         //需要sign
         $data = $headers;
-        IAuth::checkSignPass($headers);
+        IAuth::checkSignPass($data);
     }
 
     public function testAes()
