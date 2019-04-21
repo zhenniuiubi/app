@@ -30,3 +30,30 @@ function getCatName($catId)
     $cats = config('cat.list');
     return !empty($cats[$catId]) ? $cats[$catId] : '';
 }
+
+/**
+ * 状态
+ */
+function status($id, $status)
+{
+    $condition = request()->controller();
+    $sta = $status == 1?0:1;
+    // halt($status);
+    $url = url($condition.'/status', ['id'=>$id,'status'=>$sta]);
+    if ($sta==1) {
+        $str = "<a href='javascript:;' title='修改状态' status_url='".$url."'onclick='app_status(this)'><span class='label labe-success radius'>正常</span></a>";
+    } elseif ($sta==0) {
+        $str = "<a href='javascript:;' title='修改状态' status_url='".$url."'onclick='app_status(this)'><span class='label labe-danger radius'>待审</span></a>";
+    }
+    return $str;
+}
+
+function show($status,$message,$data=[],$httpCode=200)
+{
+    $data = [
+        'status' => $status,
+        'message' => $message,
+        'data' => $data,
+    ];
+    return json($data,$httpCode);
+}

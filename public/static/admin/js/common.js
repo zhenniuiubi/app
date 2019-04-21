@@ -38,3 +38,53 @@ function selecttime(flag) {
         }
     }
 }
+
+function app_del(obj,id) {
+    layer.confirm('确认删除吗?', { icon: 3, title: '提示' }, function (index) {
+        url = $(obj).attr("del_url");
+        $.ajax({
+            type: 'POST',
+            url: url,
+            dataType: 'json',
+            success: function(data){
+                if (data.code==1) {
+                    layer.msg('已删除',{icon:1,time:1000},function(){
+                        self.location = data.data.jump_url;
+                    });
+                }else if(data.code==0){
+                    layer.msg(data.msg,{icon:1,time:2000});
+                }
+            },
+            error: function(data){
+                console.log(data);
+            }
+        });
+
+        layer.close(index);
+    });
+}
+
+function app_status(obj) {
+    url = $(obj).attr("status_url");
+    layer.confirm('确认修改吗?', { icon: 3, title: '提示' }, function (index) {
+        $.ajax({
+            type: 'POST',
+            url: url,
+            dataType: 'json',
+            success: function(data){
+                if (data.code==1) {
+                    layer.msg('已修改',{icon:1},function(){
+                        self.location = data.data.jump_url;
+                    });
+                }else if(data.code==0){
+                    layer.msg(data.msg,{icon:1,time:500});
+                }
+            },
+            error: function(data){
+                console.log(data);
+            }
+        });
+
+        layer.close(index);
+    });
+}

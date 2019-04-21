@@ -68,9 +68,4 @@ class News extends Base
             ]);
         }
     }
-
-    public function uploadify()
-    {
-        return $this->fetch();
-    }
 }
