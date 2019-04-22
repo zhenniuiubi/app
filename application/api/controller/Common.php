@@ -6,12 +6,14 @@ use think\Controller;
 use think\Request;
 use app\common\lib\IAuth;
 use app\common\lib\Aes;
+use app\common\lib\exception\ApiException;
 
 /**
  * api模块 公共控制方法
  */
 class Common extends Controller
 {
+    public $headers = '';
     //初始化的方法
     public function _initialize()
     {
@@ -26,15 +28,18 @@ class Common extends Controller
     {
         //首先需要获取headers
         $headers = request()->header();
-        // if (empty($headers['sign'])) {
-        //     exception('sign不存在');
-        // }
-        // if (!in_array($headers['app_type'], config('app.apptypes'))) {
-        //     exception('app_type不合法');
-        // }
+        if (empty($headers['sign'])) {
+            throw new ApiException('sign不存在', 400);
+        }
+        if (!in_array($headers['apptype'], config('app.app_types'))) {
+            throw new ApiException('apptype不合法', 400);
+        }
         //需要sign
-        $data = $headers;
-        IAuth::checkSignPass($data);
+        if (!IAuth::checkSignPass($headers)) {
+            //未授权
+            throw new ApiException('授权码sign失败', 401);
+        }
+        $this->headers = $headers;
     }
 
     public function testAes()
@@ -45,7 +50,6 @@ class Common extends Controller
         ];
         $str = 'Nrgp+sL7dD4hqJ8Eo0qYpCzh70odyxLETCuhmRx1OW8=';
         // echo IAuth::setSign($data);
-        return (new Aes())->decrypt($str);
-        exit;
+        // echo (new Aes())->decrypt($str);
     }
 }

@@ -11,4 +11,5 @@
 
 use think\Route;
 
+Route::resource('test', 'api/test');
 // Route::get('login', 'admin/Login/index');
