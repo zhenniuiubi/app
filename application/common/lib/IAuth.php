@@ -26,6 +26,7 @@ class IAuth
         ksort($data);
         // 2 拼接数据 用 &
         $string = http_build_query($data);
+        halt($string);
         // 3 用aes加密
         $string = (new Aes())->encrypt($string);
 
@@ -35,15 +36,14 @@ class IAuth
     /**
      * 检查sign是否正常
      */
-    public static function checkSignPass($data)
+    public static function checkSignPass($headers)
     {
-        $str = (new Aes())->decrypt($data['sign']);
+        $str = (new Aes())->decrypt($headers['sign']);
         if (empty($str)) {
             return false;
         }
-        $arr = [];
         parse_str($str, $arr);
-        if (!is_array($arr)||empty($arr['did'])||$arr['did']!=$data['did']) {
+        if (!is_array($arr)||empty($arr['did'])||$arr['did']!=$headers['did']) {
             return false;
         }
         return true;

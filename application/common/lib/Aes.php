@@ -3,12 +3,11 @@ namespace app\common\lib;
 
 /**
  * aes 加密 解密类库
- * @by singwa
  * Class Aes
  * @package app\common\lib
  */
-class Aes {
-
+class Aes
+{
     private $key = null;
 
     /**
@@ -16,7 +15,8 @@ class Aes {
      * @param $key 		密钥
      * @return String
      */
-    public function __construct() {
+    public function __construct()
+    {
         // 需要小伙伴在配置文件app.php中定义aeskey
         $this->key = config('app.aeskey');
     }
@@ -27,7 +27,8 @@ class Aes {
      * @param String key   解密的key
      * @return HexString
      */
-    public function encrypt($input = '') {
+    public function encrypt($input = '')
+    {
         $size = mcrypt_get_block_size(MCRYPT_RIJNDAEL_128, MCRYPT_MODE_ECB);
         $input = $this->pkcs5_pad($input, $size);
         $td = mcrypt_module_open(MCRYPT_RIJNDAEL_128, '', MCRYPT_MODE_ECB, '');
@@ -40,7 +41,6 @@ class Aes {
         $data = base64_encode($data);
 
         return $data;
-
     }
     /**
      * 填充方式 pkcs5
@@ -48,7 +48,8 @@ class Aes {
      * @param String blocksize   加密长度
      * @return String
      */
-    private function pkcs5_pad($text, $blocksize) {
+    private function pkcs5_pad($text, $blocksize)
+    {
         $pad = $blocksize - (strlen($text) % $blocksize);
         return $text . str_repeat(chr($pad), $pad);
     }
@@ -59,13 +60,13 @@ class Aes {
      * @param String key   解密的key
      * @return String
      */
-    public function decrypt($sStr) {
-        $decrypted= mcrypt_decrypt(MCRYPT_RIJNDAEL_128,$this->key,base64_decode($sStr), MCRYPT_MODE_ECB);
+    public function decrypt($sStr)
+    {
+        $decrypted= mcrypt_decrypt(MCRYPT_RIJNDAEL_128, $this->key, base64_decode($sStr), MCRYPT_MODE_ECB);
         $dec_s = strlen($decrypted);
         $padding = ord($decrypted[$dec_s-1]);
         $decrypted = substr($decrypted, 0, -$padding);
 
         return $decrypted;
     }
-
 }
