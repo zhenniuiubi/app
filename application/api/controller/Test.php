@@ -2,10 +2,10 @@
 
 namespace app\api\controller;
 
-use think\Controller;
+use app\api\controller\Common;
 use app\common\lib\Aes;
 
-class Test extends Controller
+class Test extends Common
 {
     /**
      * 显示资源列表
@@ -39,7 +39,8 @@ class Test extends Controller
         // if ($data['mt'!=1]) {
         //     throw new ApiException('提交的数据不合法', 403);
         // }
-        return show(1, 'ok', (new Aes())->encrypt(json_encode(input('post.'))), 201);
+        return show(1, 'ok', input('post.'), 201);
+        // return show(1, 'ok', (new Aes())->encrypt(json_encode(input('post.'))), 201);
     }
 
     /**
