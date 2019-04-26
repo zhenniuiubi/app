@@ -18,7 +18,7 @@ class Common extends Controller
     public function _initialize()
     {
         $this->checkRequestAuth();
-        $this->testAes();
+        // $this->testAes();
     }
 
     /**
@@ -48,8 +48,9 @@ class Common extends Controller
             'did' => '12345dg',
             'version' => 1,
         ];
+        //did=12345dg&version=1
         $str = 'Nrgp+sL7dD4hqJ8Eo0qYpCzh70odyxLETCuhmRx1OW8=';
         // echo IAuth::setSign($data);
-        // echo (new Aes())->decrypt($str);
+        echo (new Aes())->decrypt($str);
     }
 }
