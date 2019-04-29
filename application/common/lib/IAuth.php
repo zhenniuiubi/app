@@ -45,12 +45,15 @@ class IAuth
         if (!is_array($arr)||empty($arr['did'])||$arr['did']!=$data['did']) {
             return false;
         }
-        if ((time()-ceil($arr['time']/1000)) > config('app.app_sign_time')) {
-            return false;
-        }
-        //唯一性判定
-        if (cache($data['sign'])) {
-            # code...
+        if (!config('app_debug')) {
+            if ((time()-ceil($arr['time']/1000)) > config('app.app_sign_time')) {
+                return false;
+            }
+            //唯一性判定
+            if (cache($data['sign'])) {
+                //TODO:???
+                return false;
+            }
         }
         return true;
     }
