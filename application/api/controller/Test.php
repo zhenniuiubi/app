@@ -39,7 +39,7 @@ class Test extends Common
         // if ($data['mt'!=1]) {
         //     throw new ApiException('提交的数据不合法', 403);
         // }
-        return show(1, 'ok', input('post.'), 201);
-        // return show(1, 'ok', (new Aes())->encrypt(json_encode(input('post.'))), 201);
+        // return show(1, 'ok', input('post.'), 201);
+        return show(1, 'ok', (new Aes())->encrypt(json_encode(input('post.'))), 201);
     }
 }
