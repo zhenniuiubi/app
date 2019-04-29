@@ -8,6 +8,7 @@ class Cat extends Common
 {
     public function read()
     {
+        //TODO::解决模块找不到的BUG
         $cats = config('cat.list');
         $result[] = [
             'cat_id' => 0,
