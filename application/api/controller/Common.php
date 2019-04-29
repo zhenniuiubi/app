@@ -7,6 +7,8 @@ use think\Request;
 use app\common\lib\IAuth;
 use app\common\lib\Aes;
 use app\common\lib\exception\ApiException;
+use app\common\lib\Time;
+use think\Cache;
 
 /**
  * api模块 公共控制方法
@@ -39,6 +41,9 @@ class Common extends Controller
             //未授权
             throw new ApiException('授权码sign失败', 401);
         }
+        // cache(1,$headers['sign'],config('app.app_sign_cache_time'));
+        Cache::set(1,$headers['sign'],300);
+        // 1、文件  2、mysql 3、redis
         $this->headers = $headers;
     }
 
@@ -47,10 +52,12 @@ class Common extends Controller
         $data = [
             'did' => '12345dg',
             'version' => 1,
+            'time' => Time::get13Timestamp(),
         ];
         //did=12345dg&version=1
         $str = 'Nrgp+sL7dD4hqJ8Eo0qYpCzh70odyxLETCuhmRx1OW8=';
-        // echo IAuth::setSign($data);
-        echo (new Aes())->decrypt($str);
+        //cCHVjEgMHxXZar5RcwRRYLGKo/rst2cWL/tTg9hU4Gxp67dOjRCMIqoPeEuM7jlH
+        echo IAuth::setSign($data);
+        // echo (new Aes())->decrypt($str);
     }
 }

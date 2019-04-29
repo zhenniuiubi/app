@@ -41,10 +41,16 @@ class IAuth
         if (empty($str)) {
             return false;
         }
-        $arr = [];
         parse_str($str, $arr);
         if (!is_array($arr)||empty($arr['did'])||$arr['did']!=$data['did']) {
             return false;
+        }
+        if ((time()-ceil($arr['time']/1000)) > config('app.app_sign_time')) {
+            return false;
+        }
+        //唯一性判定
+        if (cache($data['sign'])) {
+            # code...
         }
         return true;
     }
