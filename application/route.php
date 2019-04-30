@@ -12,5 +12,5 @@
 use think\Route;
 
 // Route::resource('test', 'api/test');
-Route::get('api/cat', 'api/cat/read');
-// Route::get('login', 'admin/Login/index');
+Route::any('/api/cat', 'api/cat/read');// get 改为any,因为参数是在header传递的用get获取不到
+Route::get('login', 'admin/Login/index');

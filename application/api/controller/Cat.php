@@ -3,8 +3,9 @@
 namespace app\api\controller;
 
 use app\api\controller\Common;
+use think\Controller;
 
-class Cat extends Common
+class Cat extends Controller
 {
     public function read()
     {

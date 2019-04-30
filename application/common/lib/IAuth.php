@@ -43,6 +43,7 @@ class IAuth
         }
         parse_str($str, $arr);
         if (!is_array($arr)||empty($arr['did'])||$arr['did']!=$data['did']) {
+            halt(3);
             return false;
         }
         if (!config('app_debug')) {

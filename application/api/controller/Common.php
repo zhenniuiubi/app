@@ -36,7 +36,7 @@ class Common extends Controller
         if (!in_array($headers['apptype'], config('app.app_types'))) {
             throw new ApiException('apptype不合法', 400);
         }
-        //需要sign
+        //需要校验sign
         if (!IAuth::checkSignPass($headers)) {
             //未授权
             throw new ApiException('授权码sign失败', 401);
@@ -52,7 +52,7 @@ class Common extends Controller
         $data = [
             'did' => '12345dg',
             'version' => 1,
-            'time' => Time::get13Timestamp(),
+            // 'time' => Time::get13Timestamp(),
         ];
         //did=12345dg&version=1
         $str = 'Nrgp+sL7dD4hqJ8Eo0qYpCzh70odyxLETCuhmRx1OW8=';
