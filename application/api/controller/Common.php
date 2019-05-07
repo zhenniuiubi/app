@@ -17,11 +17,11 @@ class Common extends Controller
 {
     public $headers = '';
     //初始化的方法
-    public function _initialize()
-    {
-        $this->checkRequestAuth();
-        // $this->testAes();
-    }
+    // public function _initialize()
+    // {
+    //     $this->checkRequestAuth();
+    //     // $this->testAes();
+    // }
 
     /**
      * 检查每次app请求的数据是否合法
@@ -42,7 +42,7 @@ class Common extends Controller
             throw new ApiException('授权码sign失败', 401);
         }
         // cache(1,$headers['sign'],config('app.app_sign_cache_time'));
-        Cache::set(1,$headers['sign'],300);
+        Cache::set(1, $headers['sign'], 300);
         // 1、文件  2、mysql 3、redis
         $this->headers = $headers;
     }
@@ -59,5 +59,23 @@ class Common extends Controller
         //cCHVjEgMHxXZar5RcwRRYLGKo/rst2cWL/tTg9hU4Gxp67dOjRCMIqoPeEuM7jlH
         echo IAuth::setSign($data);
         // echo (new Aes())->decrypt($str);
+    }
+
+    /**
+     * 获取处理的新闻的内容数据
+     * @param array $new
+     * @return array
+     */
+    protected function getDealNews($news=[])
+    {
+        if (empty($news)) {
+            return [];
+        }
+        $cats = config('cat.list');
+        foreach ($news as $key => $new) {
+            $news[$key]['catname'] = $cats[$new['catid']]?$cats[$new['catid']]:'-';
+        }
+        return $news;
+
     }
 }
