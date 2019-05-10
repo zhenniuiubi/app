@@ -15,7 +15,7 @@ class Index extends Common
     {
         $header =  model('News')->getIndexHeadNormalNews();
         $heads = $this->getDealNews($header);
-
+        halt($header);
         $positions = model('News')->getPositionNormalNews();
         $positions = $this->getDealNews($positions);
 

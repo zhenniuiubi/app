@@ -58,7 +58,7 @@ class Common extends Controller
         $str = 'Nrgp+sL7dD4hqJ8Eo0qYpCzh70odyxLETCuhmRx1OW8=';
         //cCHVjEgMHxXZar5RcwRRYLGKo/rst2cWL/tTg9hU4Gxp67dOjRCMIqoPeEuM7jlH
         echo IAuth::setSign($data);
-        // echo (new Aes())->decrypt($str);
+        // echo (new Aes())->decrypt($str);exit;
     }
 
     /**
@@ -76,6 +76,5 @@ class Common extends Controller
             $news[$key]['catname'] = $cats[$new['catid']]?$cats[$new['catid']]:'-';
         }
         return $news;
-
     }
 }
