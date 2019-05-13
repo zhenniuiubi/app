@@ -48,12 +48,12 @@ function status($id, $status)
     return $str;
 }
 
-function show($status,$message,$data=[],$httpCode=200)
+function show($status, $message, $data=[], $httpCode=200)
 {
     $data = [
         'status' => $status,
         'message' => $message,
         'data' => $data,
     ];
-    return json($data,$httpCode);
+    return json($data, $httpCode);
 }
