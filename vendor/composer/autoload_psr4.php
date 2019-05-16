@@ -10,5 +10,4 @@ return array(
     'think\\captcha\\' => array($vendorDir . '/topthink/think-captcha/src'),
     'think\\' => array($baseDir . '/thinkphp/library/think'),
     'app\\' => array($baseDir . '/application'),
-    'Qiniu\\' => array($vendorDir . '/qiniu/php-sdk/src/Qiniu'),
 );
