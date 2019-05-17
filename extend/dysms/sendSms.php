@@ -25,22 +25,21 @@ function sendSms()
     $security = false;
 
     // fixme 必填: 请参阅 https://ak-console.aliyun.com/ 取得您的AK信息
-    $accessKeyId = "LTAIiRHgyiPxTGDa";
-    $accessKeySecret = "ZAUA0QSg1BsLfo85msh293p73XBrGs";
+    $accessKeyId = "";
+    $accessKeySecret = "";
 
     // fixme 必填: 短信接收号码
-    $params["PhoneNumbers"] = "17620017621";
+    $params["PhoneNumbers"] = "";
 
     // fixme 必填: 短信签名，应严格按"签名名称"填写，请参考: https://dysms.console.aliyun.com/dysms.htm#/develop/sign
-    $params["SignName"] = "[测试专用]阿里云通信";
+    $params["SignName"] = "";
 
     // fixme 必填: 短信模板Code，应严格按"模板CODE"填写, 请参考: https://dysms.console.aliyun.com/dysms.htm#/develop/template
-    $params["TemplateCode"] = "[测试专用]阿里云通信测试模版";
+    $params["TemplateCode"] = "";
 
     // fixme 可选: 设置模板参数, 假如模板中存在变量需要替换则为必填项
     $params['TemplateParam'] = array(
         "code" => "12345",
-        "product" => "阿里通信"
     );
 
     // fixme 可选: 设置发送短信流水号

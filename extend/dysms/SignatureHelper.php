@@ -1,6 +1,6 @@
 <?php
 
-namespace Aliyun\DySDKLite;
+namespace dysms;
 
 /**
  * 签名助手 2017/11/19

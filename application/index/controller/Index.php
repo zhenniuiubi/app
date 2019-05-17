@@ -1,19 +1,22 @@
 <?php
 namespace app\index\controller;
-use think\Controller;
 
-use app\common\lib\Time;
-use app\common\Test;
+use think\Controller;
+use dysms\Alisms;
+
 class Index extends Controller
 {
     public function index()
     {
-        $time = new Time();
-        echo $time->get13Timestamp();die;
+        $Alisms = new Alisms();
+        $phone = '17620017621';
+        echo $Alisms->code($phone,$msg);
+        // die;
         // return '1';
     }
 
-    public function code(){
+    public function code()
+    {
         $test = new Test(); //这个类我放在了Common\Controller\下面,你们随意哈
         echo $test->code();
     }

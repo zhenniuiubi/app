@@ -1,16 +1,16 @@
 <?php
-namespace app\extend\dysms;
+namespace dysms;
 use Think\Controller;
-use Aliyun\DySDKLite\SignatureHelper;
-require_once "./SignatureHelper.php"; 
+use dysms\SignatureHelper;
+// require_once "./SignatureHelper.php"; 
 
 class Alisms extends Controller {
     
     public function _initialize(){
-        $this->accessKeyId = "LTAI123123e24GIc"; //keyid
-        $this->accessKeySecret = "6SBiPi1u123213UpPGW"; //keysecret
-        $this->SignName = "梦雪"; //签名
-        $this->CodeId = "SMS_11902313131"; //验证码模板id
+        $this->accessKeyId = "LTAIiRHgyiPxTGDa"; //keyid
+        $this->accessKeySecret = "ZAUA0QSg1BsLfo85msh293p73XBrGs"; //keysecret
+        $this->SignName = "我的编程之旅"; //签名
+        $this->CodeId = "SMS_165413163"; //验证码模板id
     }
     
     //发送验证码
@@ -63,7 +63,7 @@ class Alisms extends Controller {
                 "Version" => "2017-05-25",
             ))
         );
-        
+        halt($content);
         if($content===false){
             $msg = "发送异常";
             return false;
