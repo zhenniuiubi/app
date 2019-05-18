@@ -13,13 +13,12 @@ require_once dirname(__DIR__) . "/SignatureHelper.php";
 
 use Aliyun\DySDKLite\SignatureHelper;
 
-
 /**
  * 批量发送短信
  */
-function sendBatchSms() {
-
-    $params = array ();
+function sendBatchSms()
+{
+    $params = array();
 
     // *** 需用户填写部分 ***
     // fixme 必填：是否启用https
@@ -66,7 +65,7 @@ function sendBatchSms() {
     $params["SignNameJson"] = json_encode($params["SignNameJson"], JSON_UNESCAPED_UNICODE);
     $params["PhoneNumberJson"] = json_encode($params["PhoneNumberJson"], JSON_UNESCAPED_UNICODE);
 
-    if(!empty($params["SmsUpExtendCodeJson"]) && is_array($params["SmsUpExtendCodeJson"])) {
+    if (!empty($params["SmsUpExtendCodeJson"]) && is_array($params["SmsUpExtendCodeJson"])) {
         $params["SmsUpExtendCodeJson"] = json_encode($params["SmsUpExtendCodeJson"], JSON_UNESCAPED_UNICODE);
     }
 
