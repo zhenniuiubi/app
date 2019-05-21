@@ -2,15 +2,17 @@
 namespace app\index\controller;
 
 use think\Controller;
-use dysms\Alisms;
-use app\common\lib\Time;
+use aliyun\api_demo\SmsDemo;
+use aliyun\Alisms;
 
 class Index extends Controller
 {
     public function index()
     {
-        $time = new Time();
-        return $time->get13Timestamp();
+        $result = SmsDemo::sendSms(17620017621);
+        echo $result->Message;
+        // $res = Alisms::getInstance()->smsIdentify(17620017621);
+        // halt($res);
         // die;
         // return '1';
     }

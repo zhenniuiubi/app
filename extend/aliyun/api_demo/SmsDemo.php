@@ -39,9 +39,9 @@ class SmsDemo
         $domain = "dysmsapi.aliyuncs.com";
 
         // TODO 此处需要替换成开发者自己的AK (https://ak-console.aliyun.com/)
-        $accessKeyId = "yourAccessKeyId"; // AccessKeyId
+        $accessKeyId = "LTAIiRHgyiPxTGDa"; // AccessKeyId
 
-        $accessKeySecret = "yourAccessKeySecret"; // AccessKeySecret
+        $accessKeySecret = "ZAUA0QSg1BsLfo85msh293p73XBrGs"; // AccessKeySecret
 
         // 暂时不支持多Region
         $region = "cn-hangzhou";
@@ -187,22 +187,22 @@ class SmsDemo
 
 }
 
-// 调用示例：
-set_time_limit(0);
-header('Content-Type: text/plain; charset=utf-8');
+// // 调用示例：
+// set_time_limit(0);
+// header('Content-Type: text/plain; charset=utf-8');
 
-$response = SmsDemo::sendSms();
-echo "发送短信(sendSms)接口返回的结果:\n";
-print_r($response);
+// $response = SmsDemo::sendSms();
+// echo "发送短信(sendSms)接口返回的结果:\n";
+// print_r($response);
 
-sleep(2);
+// sleep(2);
 
-$response = SmsDemo::sendBatchSms();
-echo "批量发送短信(sendBatchSms)接口返回的结果:\n";
-print_r($response);
+// $response = SmsDemo::sendBatchSms();
+// echo "批量发送短信(sendBatchSms)接口返回的结果:\n";
+// print_r($response);
 
-sleep(2);
+// sleep(2);
 
-$response = SmsDemo::querySendDetails();
-echo "查询短信发送情况(querySendDetails)接口返回的结果:\n";
-print_r($response);
+// $response = SmsDemo::querySendDetails();
+// echo "查询短信发送情况(querySendDetails)接口返回的结果:\n";
+// print_r($response);
