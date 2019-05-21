@@ -3,14 +3,14 @@ namespace app\index\controller;
 
 use think\Controller;
 use dysms\Alisms;
+use app\common\lib\Time;
 
 class Index extends Controller
 {
     public function index()
     {
-        $Alisms = new Alisms();
-        $phone = '17620017621';
-        echo $Alisms->code($phone,$msg);
+        $time = new Time();
+        return $time->get13Timestamp();
         // die;
         // return '1';
     }

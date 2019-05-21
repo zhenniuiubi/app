@@ -4,9 +4,12 @@ namespace app\common\lib;
 class Time
 {
     /**
-     * 图片上传
+     * 返回13位时间戳
      */
-    public static function get13Timestamp()
+    private function __construct()
+    {
+    }
+    public function get13Timestamp()
     {
         list($t1, $t2) = explode(' ', microtime());
         return $t2.ceil(($t1*1000));
