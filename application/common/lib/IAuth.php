@@ -58,4 +58,11 @@ class IAuth
         }
         return true;
     }
+    //设置登陆的token
+    public static function setAppLoginToken($phone='')
+    {
+        $str =  md5(uniqid(microtime(true), true));
+        $str = sha1($str.$phone);
+        return $str;
+    }
 }

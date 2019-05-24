@@ -1,5 +1,6 @@
 <?php
 namespace aliyun;
+
 use aliyun\api_demo\SmsDemo;
 
 class Alisms
@@ -24,7 +25,7 @@ class Alisms
     }
 
     /**
-     * 
+     *
      */
     public function smsIdentify($phone)
     {

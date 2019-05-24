@@ -42,4 +42,6 @@ class Test extends Common
         // return show(1, 'ok', input('post.'), 201);
         return show(1, 'ok', (new Aes())->encrypt(json_encode(input('post.'))), 201);
     }
+
+    //在登陆状态下 所有状态必须携带token
 }

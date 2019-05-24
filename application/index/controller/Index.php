@@ -2,19 +2,28 @@
 namespace app\index\controller;
 
 use think\Controller;
+use app\common\lib\IAuth;
 use aliyun\api_demo\SmsDemo;
-use aliyun\Alisms;
+use app\common\model\AdminUser;
 
 class Index extends Controller
 {
     public function index()
     {
-        $result = SmsDemo::sendSms(17620017621);
-        echo $result->Message;
-        // $res = Alisms::getInstance()->smsIdentify(17620017621);
+        $data = [
+            // 'username' => 'test1',
+            // 'status' => 1,
+        ];
+        $user = AdminUser::create($data);
+        // dump((bool)$user);
+        if ($user && $user['id']) {
+            echo $user['id'];
+        }else{
+            echo '添加失败';
+        }
+        // $res = SmsDemo::sendSms('17620017621');
         // halt($res);
-        // die;
-        // return '1';
+        // echo IAuth::setAppLoginToken('17620017621');
     }
 
     public function code()

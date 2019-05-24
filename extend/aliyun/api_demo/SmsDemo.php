@@ -1,4 +1,5 @@
 <?php
+namespace aliyun\api_demo;
 
 ini_set("display_errors", "on");
 
@@ -23,15 +24,15 @@ Config::load();
  */
 class SmsDemo
 {
-
-    static $acsClient = null;
+    public static $acsClient = null;
 
     /**
      * 取得AcsClient
      *
      * @return DefaultAcsClient
      */
-    public static function getAcsClient() {
+    public static function getAcsClient()
+    {
         //产品名称:云通信短信服务API产品,开发者无需替换
         $product = "Dysmsapi";
 
@@ -39,9 +40,6 @@ class SmsDemo
         $domain = "dysmsapi.aliyuncs.com";
 
         // TODO 此处需要替换成开发者自己的AK (https://ak-console.aliyun.com/)
-        $accessKeyId = "LTAIiRHgyiPxTGDa"; // AccessKeyId
-
-        $accessKeySecret = "ZAUA0QSg1BsLfo85msh293p73XBrGs"; // AccessKeySecret
 
         // 暂时不支持多Region
         $region = "cn-hangzhou";
@@ -50,7 +48,7 @@ class SmsDemo
         $endPointName = "cn-hangzhou";
 
 
-        if(static::$acsClient == null) {
+        if (static::$acsClient == null) {
 
             //初始化acsClient,暂不支持region化
             $profile = DefaultProfile::getProfile($region, $accessKeyId, $accessKeySecret);
@@ -68,7 +66,8 @@ class SmsDemo
      * 发送短信
      * @return stdClass
      */
-    public static function sendSms() {
+    public static function sendSms($phone=0)
+    {
 
         // 初始化SendSmsRequest实例用于设置发送短信的参数
         $request = new SendSmsRequest();
@@ -77,18 +76,18 @@ class SmsDemo
         //$request->setProtocol("https");
 
         // 必填，设置短信接收号码
-        $request->setPhoneNumbers("12345678901");
+        $request->setPhoneNumbers($phone);
 
         // 必填，设置签名名称，应严格按"签名名称"填写，请参考: https://dysms.console.aliyun.com/dysms.htm#/develop/sign
-        $request->setSignName("短信签名");
+        $request->setSignName("我的编程之旅");
 
         // 必填，设置模板CODE，应严格按"模板CODE"填写, 请参考: https://dysms.console.aliyun.com/dysms.htm#/develop/template
-        $request->setTemplateCode("SMS_0000001");
+        $request->setTemplateCode("SMS_1654131631");
 
         // 可选，设置模板参数, 假如模板中存在变量需要替换则为必填项
+        $rand = rand(1000, 9999);
         $request->setTemplateParam(json_encode(array(  // 短信模板中字段的值
-            "code"=>"12345",
-            "product"=>"dsd"
+            "code"=>$rand,
         ), JSON_UNESCAPED_UNICODE));
 
         // 可选，设置流水号
@@ -99,7 +98,10 @@ class SmsDemo
 
         // 发起访问请求
         $acsResponse = static::getAcsClient()->getAcsResponse($request);
-
+        if ($acsResponse->Message == 'OK') {
+            //TODO::存储手机号以及对应的验证码
+            cache($phone, $rand, 60);
+        }
         return $acsResponse;
     }
 
@@ -107,7 +109,8 @@ class SmsDemo
      * 批量发送短信
      * @return stdClass
      */
-    public static function sendBatchSms() {
+    public static function sendBatchSms()
+    {
 
         // 初始化SendSmsRequest实例用于设置发送短信的参数
         $request = new SendBatchSmsRequest();
@@ -156,7 +159,8 @@ class SmsDemo
      * 短信发送记录查询
      * @return stdClass
      */
-    public static function querySendDetails() {
+    public static function querySendDetails()
+    {
 
         // 初始化QuerySendDetailsRequest实例用于设置短信查询的参数
         $request = new QuerySendDetailsRequest();
@@ -185,6 +189,13 @@ class SmsDemo
         return $acsResponse;
     }
 
+    public static function checkSmsIdentify($phone=0)
+    {
+        if (!$phone) {
+            return false;
+        }
+        return cache($phone);
+    }
 }
 
 // // 调用示例：
