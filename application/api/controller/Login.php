@@ -5,7 +5,7 @@ namespace app\api\controller;
 use app\api\controller\Common;
 use aliyun\api_demo\SmsDemo;
 use app\common\lib\IAuth;
-use app\common\model\User;
+use app\common\model\AdminUser;
 
 class Login extends Common
 {
@@ -34,9 +34,11 @@ class Login extends Common
             'status' => 1,
             'phone' => $param['phone'],
         ];
-        // $user = User::create($data);
-        // if ($user) {
-        //     # code...
-        // }
+        $user = AdminUser::create($data);
+        if ($user && $user['id']) {
+            echo '注册成功';
+        } else {
+            echo '注册失败';
+        }
     }
 }

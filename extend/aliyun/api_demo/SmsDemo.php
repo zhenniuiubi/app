@@ -82,7 +82,7 @@ class SmsDemo
         $request->setSignName("我的编程之旅");
 
         // 必填，设置模板CODE，应严格按"模板CODE"填写, 请参考: https://dysms.console.aliyun.com/dysms.htm#/develop/template
-        $request->setTemplateCode("SMS_1654131631");
+        $request->setTemplateCode("SMS_16541316");
 
         // 可选，设置模板参数, 假如模板中存在变量需要替换则为必填项
         $rand = rand(1000, 9999);
@@ -100,7 +100,7 @@ class SmsDemo
         $acsResponse = static::getAcsClient()->getAcsResponse($request);
         if ($acsResponse->Message == 'OK') {
             //TODO::存储手机号以及对应的验证码
-            cache($phone, $rand, 60);
+            cache($phone, $rand, 600);
         }
         return $acsResponse;
     }
